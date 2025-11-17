@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-xxl bg-light justify-content-center">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#"><b>Thong ke</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#"><b>Quan ly danh muc</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#"><b>Quan ly san pham</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="#"><b>Quan ly binh luan</b></a>
+            </li>
+        </ul>
+    </nav>
+        <!-- noi dung -->
+
+    <div class="container">
+        <h1 class="mt-3 mb-3">Tao moi san pham</h1>
+        <div class="row">
+            <form action="/action_page.php">
+                <!-- <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" name="remember"> Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button> -->
+                <div class="mt-3 mb-3">
+                    <label for="" class="form-label">Ten</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+                <div class="mt-3 mb-3">
+                    <label for="" class="form-label">danh muc</label>
+                    <select name="category_id" id="" class="form-control">
+                        <option value="">danh muc 1</option>
+                        <option value="">danh muc 2</option>
+                    </select>
+                </div>
+                <div class="mt-3 mb-3">
+                    <label for="" class="form-label">mo ta</label>
+                    <input type="text" name="description" class="form-control">
+                </div>
+                <div class="mt-3 mb-3">
+                    <label for="" class="form-label">gia</label>
+                    <input type="number" name="price" class="form-control">
+                </div>
+                <div class="mt-3 mb-3">
+                    <label for="" class="form-label">so luong</label>
+                    <input type="number" name="quantity" class="form-control">
+                </div>
+                <div class="mt-3 mb-3">
+                    <label for="" class="form-label">anh</label>
+                    <input type="file" name="image" class="form-control">
+                </div>
+                <button class="btn btn-primary">Luu</button>
+            </form>
+            <a href="">quay lai trang danh sach</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
