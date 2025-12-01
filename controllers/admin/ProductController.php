@@ -6,7 +6,7 @@ class ProductController {
         $this->productModel = new Product();
     }
 
-    public function dashboad() {
+    public function dashboard() {
         $title = 'ĐÂY LÀ TRANG QUẢN TRỊ';
         require_once PATH_VIEW_ADMIN_MAIN;
     }
@@ -18,11 +18,27 @@ class ProductController {
         require_once PATH_VIEW_ADMIN_MAIN;
     }
 
+    public function show() {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header('Location: ?mode=admin&action=list-product');
+            exit;
+        }
+        $stmt = $this->productModel->pdo->prepare('SELECT * FROM products WHERE id = ?');
+        $stmt->execute([$id]);
+        $data = $stmt->fetch();
+
+        $view = 'product/show';
+        $title = 'Chi tiết sản phẩm';
+        require_once PATH_VIEW_ADMIN_MAIN;
+    }
+
     public function create()
     {
         // get categories for select
         $catModel = new Category();
         $categories = $catModel->getAll();
+
         $view = 'product/form';
         $title = 'Tạo sản phẩm mới';
         $data = null;
@@ -148,14 +164,18 @@ class ProductController {
     {
         $id = $_GET['id'] ?? null;
         if ($id) {
-            // delete image file
+            //  xóa ảnh
+            $uploadDir = PATH_ASSETS_UPLOADS . 'products/';
+
             $oldStmt = $this->productModel->pdo->prepare('SELECT image FROM products WHERE id = ?');
             $oldStmt->execute([$id]);
             $old = $oldStmt->fetchColumn();
-            $uploadDir = PATH_ASSETS_UPLOADS . 'products/';
+
             if ($old && file_exists($uploadDir . $old)) {
                 @unlink($uploadDir . $old);
             }
+
+            // xóa bản ghi
             $stmt = $this->productModel->pdo->prepare('DELETE FROM products WHERE id = ?');
             $stmt->execute([$id]);
         }

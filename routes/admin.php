@@ -42,5 +42,5 @@ match ($action) {
     'delete-comment' => (new CommentController)->delete(),
     
     // DEFAULT
-    default        => (new ProductController)->dashboad(),
+    default        => (new ProductController)->dashboard(),
 };
