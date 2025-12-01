@@ -27,18 +27,13 @@ match ($action) {
 
     // USERS CRUD
     'list-users' => (new UserController)->index(),
-    'create-user' => (new UserController)->create(),
-    'store-user' => (new UserController)->store(),
-    'edit-user' => (new UserController)->edit(),
-    'update-user' => (new UserController)->update(),
-    'delete-user' => (new UserController)->delete(),
 
     // COMMENTS CRUD
     // ========== COMMENT ==========
     'list-comments'     => (new CommentController)->index(),
     'hide-comment'      => (new CommentController)->hide(),   // set status = 0
     'show-comment'      => (new CommentController)->show(),   // set status = 1
-    
+
     
     // DEFAULT
     default        => (new ProductController)->dashboard(),

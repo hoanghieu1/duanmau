@@ -17,12 +17,16 @@
 <body>
 
     <nav class="navbar navbar-expand-xxl bg-light justify-content-center">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link text-uppercase" href="<?= BASE_URL ?>"><b>Home</b></a>
-            </li>
-        </ul>
-    </nav>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-uppercase" href="<?= BASE_URL ?>"><b>Home</b></a>
+        </li>
+        <li class="nav-item">
+            
+            <a class="nav-link text-uppercase" href="<?= BASE_URL . '?action=products' ?>"><b>Sản phẩm</b></a>
+        </li>
+    </ul>
+</nav>
 
     <div class="container">
         <h1 class="mt-3 mb-3"><?= $title ?? '' ?></h1>
