@@ -34,12 +34,11 @@ match ($action) {
     'delete-user' => (new UserController)->delete(),
 
     // COMMENTS CRUD
-    'list-comments' => (new CommentController)->index(),
-    'create-comment' => (new CommentController)->create(),
-    'store-comment' => (new CommentController)->store(),
-    'edit-comment' => (new CommentController)->edit(),
-    'update-comment' => (new CommentController)->update(),
-    'delete-comment' => (new CommentController)->delete(),
+    // ========== COMMENT ==========
+    'list-comments'     => (new CommentController)->index(),
+    'hide-comment'      => (new CommentController)->hide(),   // set status = 0
+    'show-comment'      => (new CommentController)->show(),   // set status = 1
+    
     
     // DEFAULT
     default        => (new ProductController)->dashboard(),
