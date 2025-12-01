@@ -50,6 +50,9 @@ class CategoryController
             ]);
         }
 
+        header('Location: ?mode=admin&action=list-categories');
+        exit;
+
         
     }
     public function edit()
@@ -75,6 +78,20 @@ class CategoryController
             $description = $_POST['description'] ?? '';
             $category_id = $_POST['category_id'] ?? null;
 
+             if ($name == '') {
+            $view = 'category/form';
+            $title = 'Chỉnh sửa danh mục';
+            $error = "Tên danh mục không được để trống!";
+
+            // Lấy lại dữ liệu đang sửa
+            $stmt = $this->categoryModel->pdo->prepare("SELECT * FROM categories WHERE id = ?");
+            $stmt->execute([$id]);
+            $data = $stmt->fetch();
+
+            require_once PATH_VIEW_ADMIN_MAIN;
+            return;
+        }
+        // Cập nhật vào database
             $sql = "UPDATE categories SET name = :name, description = :description, category_id = :category_id WHERE id = :id";
             $stmt = $this->categoryModel->pdo->prepare($sql);
             $stmt->execute([
