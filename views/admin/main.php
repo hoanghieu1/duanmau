@@ -25,13 +25,16 @@
                 <a class="nav-link text-uppercase" href="#"><b>Thống kê</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="#"><b>Quản lý danh mục</b></a>
+                <a class="nav-link text-uppercase" href="http://localhost/base-duanmau/index.php?mode=admin&action=list-categories"><b>Quản lý danh mục</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="#"><b>Quản lý sản phẩm</b></a>
+                <a class="nav-link text-uppercase" href="http://localhost/base-duanmau/index.php?mode=admin&action=list-product"><b>Quản lý sản phẩm</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="#"><b>Quản lý bình luận</b></a>
+                <a class="nav-link text-uppercase" href="http://localhost/base-duanmau/index.php?mode=admin&action=list-comments"><b>Quản lý bình luận</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" href="http://localhost/base-duanmau/index.php?mode=admin&action=list-users"><b>Quản lý Người dùng</b></a>
             </li>
         </ul>
     </nav>

@@ -18,15 +18,16 @@ class CategoryController
 
     public function create()
     {
-        $view = 'category/form';
+        $view  = 'category/form';
         $title = 'Tạo danh mục mới';
-        $data = null;
+        $data  = null;
+
         require_once PATH_VIEW_ADMIN_MAIN;
     }
 
-    public funtion store()
+    public function store()
     {
-        if ($_SERVER['REQUEST_METHOOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $category_id = $_POST['category_id'] ?? null;
@@ -52,9 +53,8 @@ class CategoryController
 
         header('Location: ?mode=admin&action=list-categories');
         exit;
-
-        
     }
+
     public function edit()
     {
         $id = $_GET['id'] ?? null;
