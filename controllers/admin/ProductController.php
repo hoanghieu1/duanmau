@@ -12,7 +12,7 @@ class ProductController {
     }
     
     public function index() {
-        $view = 'product/index';
+        $view = 'product/index';    
         $title = 'Danh sách sản phẩm';
         $data = $this->productModel->getAll();
         require_once PATH_VIEW_ADMIN_MAIN;
@@ -24,10 +24,20 @@ class ProductController {
             header('Location: ?mode=admin&action=list-product');
             exit;
         }
+        // lấy thông tin sản phẩm
         $stmt = $this->productModel->pdo->prepare('SELECT * FROM products WHERE id = ?');
         $stmt->execute([$id]);
         $data = $stmt->fetch();
 
+        if (!$data) {
+        // Không có sản phẩm thì quay lại danh sách
+        header('Location: ?mode=admin&action=list-product');
+        exit;
+        }
+        // hiện tên danh mục
+        $catModel = new Category();
+        $categories = $catModel->getAll();
+        
         $view = 'product/show';
         $title = 'Chi tiết sản phẩm';
         require_once PATH_VIEW_ADMIN_MAIN;
