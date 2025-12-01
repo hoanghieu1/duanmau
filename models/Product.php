@@ -10,4 +10,11 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
+    //hàm xóa dữ liệu
+    public function delete($id) {
+        $sql = "DELETE FROM products WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([':id' => $id]);
+
+    }
 }

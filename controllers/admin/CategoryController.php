@@ -24,13 +24,23 @@ class CategoryController
         require_once PATH_VIEW_ADMIN_MAIN;
     }
 
-    public function store()
+    public funtion store()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $category_id = $_POST['category_id'] ?? null;
 
+            // validate xíu xíu
+            if ($name === '') {
+                // quay lại form với thông báo lỗi
+                $view = 'category/form';
+                $title = 'Tạo danh mục mới';
+                $error = 'Tên danh mục không được để trống.';
+                require_once PATH_VIEW_ADMIN_MAIN;
+                return;
+            }
+            // lưu vào db
             $sql = "INSERT INTO categories (name, description, category_id) VALUES (:name, :description, :category_id)";
             $stmt = $this->categoryModel->pdo->prepare($sql);
             $stmt->execute([
@@ -39,10 +49,9 @@ class CategoryController
                 ':category_id' => $category_id ?: null
             ]);
         }
-        header('Location: ?mode=admin&action=list-categories');
-        exit;
-    }
 
+        
+    }
     public function edit()
     {
         $id = $_GET['id'] ?? null;

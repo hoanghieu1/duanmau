@@ -4,17 +4,20 @@
 $action = $_GET['action'] ?? '/';
 
 match ($action) {
+    // Dashboard
+
     // '/'         => (new HomeController)->index(),
     '/'             => (new ProductController)->dashboad(),
 
     // CRUD PRODUCT
     'list-product'  => (new ProductController)->index(),
+    'show-product'  => (new ProductController)->show(),
     'create-product' => (new ProductController)->create(),
     'store-product' => (new ProductController)->store(),
     'edit-product' => (new ProductController)->edit(),
     'update-product'=> (new ProductController)->update(),
     'delete-product' => (new ProductController)->delete(),
-    // lists for other resources
+    // CATEGORIES CRUD
     'list-categories' => (new CategoryController)->index(),
     'create-category' => (new CategoryController)->create(),
     'store-category' => (new CategoryController)->store(),
@@ -37,10 +40,7 @@ match ($action) {
     'edit-comment' => (new CommentController)->edit(),
     'update-comment' => (new CommentController)->update(),
     'delete-comment' => (new CommentController)->delete(),
-    'delete-product' => '',
-    'show-product'  => '', // Hiển thị thông tin chi tiết
-    'create-product' => '', // Hiển thị form tạo mới
-    'store-product' => '', // Lưu thông tin tạo mới vào CSDL
-    'edit-product' => '', // Hiển thị form cập nhật
-    'update-product'=> '' // Lưu thông tin cập nhật vào CSDL
+    
+    // DEFAULT
+    default        => (new ProductController)->dashboad(),
 };

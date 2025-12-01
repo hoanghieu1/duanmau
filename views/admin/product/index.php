@@ -51,9 +51,9 @@
                     <a href="?mode=admin&action=edit-product&id=<?= $pro['id'] ?>"
                        class="btn btn-warning btn-sm">Sửa</a>
 
-                    <a href="?mode=admin&action=delete-product&id=<?= $pro['id'] ?>"
-                       class="btn btn-danger btn-sm"
-                       onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</a>
+                    <a href="<?= BASE_URL_ADMIN . '&action=delete-product&id=' . $pro["id"]?>" 
+                       class="btn btn-danger"
+                       onclick="return confirm('có chắc chán muốn xóa không?');">Xóa</a>
                 </td>
             </tr>
         <?php endforeach; ?>
