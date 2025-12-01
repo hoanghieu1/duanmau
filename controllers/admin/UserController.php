@@ -27,7 +27,7 @@ class UserController
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Build dynamic insert based on actual table columns
+
             $colsInfo = $this->userModel->pdo->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_ASSOC);
             $insertCols = [];
             $placeholders = [];
@@ -76,15 +76,23 @@ class UserController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'] ?? null;
-            if (!$id) return header('Location: ?mode=admin&action=list-users');
+            if (!$id) {
+                header('Location: ?mode=admin&action=list-users');
+                exit;
+            }
 
-            // Build dynamic update based on submitted fields and actual table columns
-            $colsInfo = $this->userModel->pdo->query("SHOW COLUMNS FROM users")->fetchAll(PDO::FETCH_ASSOC);
+
+            $colsInfo = $this->userModel->pdo
+                    ->query("SHOW COLUMNS FROM users")
+                    ->fetchAll(PDO::FETCH_ASSOC);
+
             $sets = [];
             $params = [];
+
             foreach ($colsInfo as $col) {
                 $field = $col['Field'];
                 if ($field === 'id') continue;
+
                 if ($field === 'password') {
                     if (!empty($_POST['password'])) {
                         $sets[] = "$field = :$field";
