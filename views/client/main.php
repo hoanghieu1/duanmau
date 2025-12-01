@@ -25,12 +25,12 @@
     </nav>
 
     <div class="container">
-        <h1 class="mt-3 mb-3"><?= $title ?? 'Home' ?></h1>
+        <h1 class="mt-3 mb-3"><?= $title ?? '' ?></h1>
 
         <div class="row">
             <?php
             if (isset($view)) {
-                require_once PATH_VIEW . $view . '.php';
+                require_once PATH_VIEW_CLIENT . $view . '.php';
             }
             ?>
         </div>

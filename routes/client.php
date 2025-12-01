@@ -10,7 +10,7 @@ match ($action) {
     'products-by-category' => (new ProductController)->listByCategory(),
 
     // Trang chi tiết sản phẩm
-    'product-detail' => (new ProductClientController)->detail(),
+    'detail-product' => (new DetailProductController)->show(),
 
     // DEFAULT
     default     => (new HomeController)->index(),

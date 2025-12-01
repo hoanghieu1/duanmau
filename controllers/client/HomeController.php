@@ -2,17 +2,19 @@
 
 class HomeController
 {
+    private $productModel;
+
+    public function __construct()
+    {
+        $this->productModel = new Product();
+    }
+
     public function index() 
     {
-        // gọi model Product
-        $productModel = new Product();
-
-
-        // lấy 8 sản phẩm mới nhất
-        $newProducts = $productModel->getNewProducts();
-
-        $view = 'client/home';
+        $view = 'home';
+        $top4Lastest = $this->productModel->top4Lastest();
+        $top4View = $this->productModel->top4View();
         $title = 'Trang chủ';
-        require_once PATH_VIEW_CLIENT . 'main.php';
+        require_once PATH_VIEW_CLIENT_MAIN;
     }
 }
