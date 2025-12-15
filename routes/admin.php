@@ -29,7 +29,6 @@ match ($action) {
     'list-users' => (new UserController)->index(),
 
     // COMMENTS CRUD
-    // ========== COMMENT ==========
     'list-comments'     => (new CommentController)->index(),
     'hide-comment'      => (new CommentController)->hide(),   // set status = 0
     'show-comment'      => (new CommentController)->show(),   // set status = 1

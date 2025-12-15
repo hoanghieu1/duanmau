@@ -22,7 +22,7 @@
                     // thực thi cập nhật view_count
                 $view_count = $pro['view_count'] + 1;
                 // gọi csdl cập nhật view_count
-                $this->productModel->updateViewCount($view_count, $id);
+                $this->productModel->updateViewCount($id, $view_count);
                 
             } catch (Exception $ex) {
                 throw new Exception('Lỗi không thể hiển thị chi tiết sản phẩm');

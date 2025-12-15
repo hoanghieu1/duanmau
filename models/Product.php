@@ -1,57 +1,109 @@
+<?php
 
-<?php 
-// Có class chứa các function thực thi tương tác với cơ sở dữ liệu 
 class Product extends BaseModel
 {
-    public function getAll() {
-        $sql = "SELECT * FROM `products` ORDER BY id DESC";
-        $stmt = $this->pdo->prepare($sql);
+    // ADMIN/CLIENT: lấy tất cả sản phẩm
+    public function getAll()
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM products ORDER BY id DESC");
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
-    //hàm xóa dữ liệu
-    public function delete($id) {
-        $sql = "DELETE FROM products WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([':id' => $id]);
-
-    }
-
-    public function top4Lastest() {
-        $stmt = "SELECT * FROM products ORDER BY id DESC LIMIT 4";
-        $stmt = $this->pdo->prepare($stmt);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    public function updateViewCount($view_count, $id) {
-        $sql = "UPDATE products SET view_count = :view_count WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([':view_count' => $view_count, ':id' => $id]);
-    }
-
-    public function top4View() {
-        $stmt = "SELECT * FROM products ORDER BY view_count DESC LIMIT 4";
-        $stmt = $this->pdo->prepare($stmt);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    public function find($id) {
-        $sql = "SELECT * FROM products WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':id' => $id]);
+    // ADMIN/CLIENT: lấy 1 sản phẩm theo id
+    public function find($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt->execute([$id]);
         return $stmt->fetch();
     }
 
-    // hàm lọc sản phẩm theo danh mục
-    public function getByCategory($cateId)
+    // CLIENT: top 4 mới nhất
+    public function top4Lastest()
     {
-        $sql = "SELECT * FROM products WHERE category_id = :cateId ORDER BY id DESC";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':cateId' => $cateId]);
+        $stmt = $this->pdo->prepare("SELECT * FROM products ORDER BY id DESC LIMIT 4");
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 
+    // CLIENT: top 4 view cao nhất
+    public function top4View()
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM products ORDER BY view_count DESC LIMIT 4");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    // CLIENT: cập nhật view_count
+    public function updateViewCount($id, $view_count)
+    {
+        $stmt = $this->pdo->prepare("UPDATE products SET view_count = ? WHERE id = ?");
+        return $stmt->execute([$view_count, $id]);
+    }
+
+    // CLIENT: lọc theo danh mục
+    public function getByCategory($cateId)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE category_id = ? ORDER BY id DESC");
+        $stmt->execute([$cateId]);
+        return $stmt->fetchAll();
+    }
+
+    // ADMIN: thêm mới sản phẩm
+    public function insert($data)
+    {
+        $sql = "INSERT INTO products (category_id, name, description, price, quantity, image)
+                VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([
+            $data['category_id'],
+            $data['name'],
+            $data['description'],
+            $data['price'],
+            $data['quantity'],
+            $data['image']
+        ]);
+    }
+
+    // ADMIN: cập nhật sản phẩm (có/không có ảnh)
+    public function update($id, $data)
+    {
+        if (isset($data['image'])) {
+            $sql = "UPDATE products
+                    SET category_id=?, name=?, description=?, price=?, quantity=?, image=?
+                    WHERE id=?";
+            $params = [
+                $data['category_id'],
+                $data['name'],
+                $data['description'],
+                $data['price'],
+                $data['quantity'],
+                $data['image'],
+                $id
+            ];
+        } else {
+            $sql = "UPDATE products
+                    SET category_id=?, name=?, description=?, price=?, quantity=?
+                    WHERE id=?";
+            $params = [
+                $data['category_id'],
+                $data['name'],
+                $data['description'],
+                $data['price'],
+                $data['quantity'],
+                $id
+            ];
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($params);
+    }
+
+    // ADMIN: xóa sản phẩm theo id
+    public function deleteById($id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM products WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
 }
